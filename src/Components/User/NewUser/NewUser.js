@@ -31,6 +31,9 @@ function NewUser(props) {
     if (enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
       return;
     }
+    if (+enteredAge) {
+      return;
+    }
 
     props.addUser(userDetails);
   };
