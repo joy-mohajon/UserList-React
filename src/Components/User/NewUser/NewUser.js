@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import Wrapper from "../../Helpers/Wrapper";
 
 import Button from "../../UI/Button/Button";
 import Card from "../../UI/Card/Card";
@@ -7,9 +8,12 @@ import ErrorModule from "../../UI/ErrorModule/ErrorModule";
 import styles from "./NewUser.module.css";
 
 function NewUser(props) {
+  const nameInputRef = useRef();
+  const ageInputRef = useRef();
+
   const [enteredName, setUserName] = useState("");
   const [enteredAge, setAge] = useState("");
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
 
   const NameChangeHandler = (event) => {
     setUserName(event.target.value);
@@ -21,6 +25,7 @@ function NewUser(props) {
 
   const AddNewUserHandler = (event) => {
     event.preventDefault();
+    console.log(nameInputRef);
 
     const userDetails = {
       Name: enteredName,
@@ -53,12 +58,12 @@ function NewUser(props) {
   };
 
   return (
-    <div>
+    <Wrapper>
       {error && (
         <ErrorModule
           title={error.title}
           massage={error.massage}
-          onConfirm={errorHandler}
+          onConfirm={errorHandler} 
         />
       )}
       <Card className={styles.input}>
@@ -69,6 +74,7 @@ function NewUser(props) {
             type="text"
             value={enteredName}
             onChange={NameChangeHandler}
+            ref={nameInputRef}
           />
           <label htmlFor="userage">Age (Years)</label>
           <input
@@ -76,11 +82,12 @@ function NewUser(props) {
             type="text"
             value={enteredAge}
             onChange={AgeChangeHandler}
+            ref={ageInputRef}
           />
           <Button type="submit">Add User</Button>
         </form>
       </Card>
-    </div>
+    </Wrapper>
   );
 }
 
