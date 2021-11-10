@@ -11,29 +11,19 @@ function NewUser(props) {
   const nameInputRef = useRef();
   const ageInputRef = useRef();
 
-  const [enteredName, setUserName] = useState("");
-  const [enteredAge, setAge] = useState("");
   const [error, setError] = useState("");
-
-  const NameChangeHandler = (event) => {
-    setUserName(event.target.value);
-  };
-
-  const AgeChangeHandler = (event) => {
-    setAge(event.target.value);
-  };
 
   const AddNewUserHandler = (event) => {
     event.preventDefault();
-    console.log(nameInputRef);
+    console.log(nameInputRef.current.value);
+
+    const enteredName = nameInputRef.current.value;
+    const enteredAge = ageInputRef.current.value;
 
     const userDetails = {
       Name: enteredName,
       Age: enteredAge,
     };
-
-    setUserName("");
-    setAge("");
 
     if (enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
       setError({
@@ -72,16 +62,12 @@ function NewUser(props) {
           <input
             id="username"
             type="text"
-            value={enteredName}
-            onChange={NameChangeHandler}
             ref={nameInputRef}
           />
           <label htmlFor="userage">Age (Years)</label>
           <input
             id="userage"
             type="text"
-            value={enteredAge}
-            onChange={AgeChangeHandler}
             ref={ageInputRef}
           />
           <Button type="submit">Add User</Button>
