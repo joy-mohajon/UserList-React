@@ -41,6 +41,8 @@ function NewUser(props) {
     }
 
     props.addUser(userDetails);
+    nameInputRef.current.value = '';
+    ageInputRef.current.value = '';
   };
 
   const errorHandler = () => {
@@ -53,7 +55,7 @@ function NewUser(props) {
         <ErrorModule
           title={error.title}
           massage={error.massage}
-          onConfirm={errorHandler} 
+          onConfirm={errorHandler}
         />
       )}
       <Card className={styles.input}>
